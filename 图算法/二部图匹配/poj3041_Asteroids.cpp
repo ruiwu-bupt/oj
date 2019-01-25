@@ -1,17 +1,22 @@
+// 模板题，不是很好理解
 #include <cstring>
 #include <iostream>
 #include <cstdio>
 #include <queue>
 #include <climits>
-
 #define N 502
 
 using namespace std;
-int graph[N][N];
-int n, k;
-bool checked[N];
-int x[N], y[N];
 
+// 邻接矩阵
+int graph[N][N];
+// 每次增广记录是否已经访问过
+bool checked[N];
+// 记录二部图x、y的匹配关系
+int x[N], y[N];
+int n, k;
+
+// 寻找以u为未匹配点开始的增广路径
 bool search_path(int u) {
     for (int v = 0; v < N; v++) {
         if (graph[u][v] == 1 && !checked[v]) {
@@ -25,7 +30,7 @@ bool search_path(int u) {
     }
     return false;
 }
-
+// 计数增广路数目，每次扩展一对匹配
 int max_match() {
     int matches = 0;
     for (int i = 0; i < N; i++)
@@ -39,7 +44,7 @@ int max_match() {
     }
     return matches;
 }
-
+// 主函数，输入图的边和二部图的x，y顶点集合
 int main() {
     memset(graph, 0, sizeof(graph));
     while (scanf("%d%d", &n, &k) != EOF) {
